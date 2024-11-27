@@ -120,9 +120,10 @@ public class Main {
     public static Scanner in = new Scanner(System.in);
     public static PrintStream out = System.out;
     public static void main(String[] args) {
+        out.println("Ведите N");
         int N = in.nextInt();
         if (N <= 0){
-            out.print("Недопустимый размер массива");
+            out.print("Недопустимый размер массива: ");
             System.exit(0);
         }
         int sum1 = 0;
@@ -139,7 +140,10 @@ public class Main {
         int sumcol = 0;
         int indstr = 0;
         int indcol = 0;
+        int smin;
+        int scom;
 //        Создание вспомогательных переменных
+        out.println("Введите элементы массива: ");
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 a[i][j] = in.nextInt();
@@ -197,6 +201,7 @@ public class Main {
             }
             out.println();
         }
+
 //        Вывод диагоналей ниже главной
         for (int i = 0; i < N; i++)
             out.print(a[i][i] + " ");
@@ -218,29 +223,29 @@ public class Main {
         for (int k = 0; k < N; k++)
             sumstr += a[0][k];
 //        Нахождение суммы элементов первой строки
+
         for (int l = 0; l < N; l++)
             sumcol += a[l][0];
 //        Нахождение суммы элементов первого столбца
 
-        for (int j = 0; j < N; j++) {
-            sum = 0;
-            for (int i = 0; i < N; i++)
-                sum += a[i][j];
-            if (sum < sumcol){
-                sumcol = sum;
-                indcol = j;
-            }
-        }
+        smin = sumstr + sumcol - a[0][0];
         for (int i = 0; i < N; i++) {
-            sum = 0;
             for (int j = 0; j < N; j++) {
-                sum += a[i][j];
-            }
-            if (sum < sumstr){
-                sumstr = sum;
-                indstr = i;
+                sumstr = 0;
+                sumcol = 0;
+                for (int k = 0; k < N; k++) {
+                    sumstr += a[i][k];
+                    sumcol += a[k][j];
+                }
+                scom = sumstr + sumcol - a[i][j];
+                if (scom < smin){
+                    smin = scom;
+                    indstr = i;
+                    indcol = j;
+                }
             }
         }
+
 //        Нахождение индексов строки и столбца, при вычеркивании которых сумма останется максимальной
         out.println("Индекс строки, при вычеркивании которой сумма останется максимальной: " + indstr);
         out.println("Индекс столбца, при вычеркивании которого сумма останется максимальной: " + indcol);
@@ -313,11 +318,11 @@ public class Main {
         4 9
         ```
 
-3. Тест на массив с четным размером:
+4. Тест на массив с четным размером:
 
     - **Input**:
         ```
-        Введите N: 2
+        Введите N: 3
         Введите элементы массива: 9 8 1
                                   7 6 9
                                   1 3 5
@@ -338,4 +343,27 @@ public class Main {
          
         8 6 
         4 9
+        ```
+
+5. Тест на массив с отрицательными числами:
+
+    - **Input**:
+        ```
+        Введите N: 2
+        Введите элементы массива: -1 -2
+                                  -4 -3
+       ``` 
+
+    - **Output**:
+        ```
+        Диагонали массива: 
+        -4 
+        -3 -1 
+        -2 
+        Индекс строки, при вычеркивании которой сумма останется максимальной: 0
+        Индекс столбца, при вычеркивании которого сумма останется максимальной: 0
+         
+        Новая матрица: 
+         
+        -1
         ```
