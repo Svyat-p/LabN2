@@ -4,10 +4,10 @@ public class Main {
     public static Scanner in = new Scanner(System.in);
     public static PrintStream out = System.out;
     public static void main(String[] args) {
-        out.println("Ведите N");
+        out.println("Ведите N: ");
         int N = in.nextInt();
         if (N <= 0){
-            out.print("Недопустимый размер массива: ");
+            out.print("Недопустимый размер массива");
             System.exit(0);
         }
         int sum1 = 0;
